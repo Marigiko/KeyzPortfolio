@@ -1,0 +1,56 @@
+29-09-2023 02:05:39 - INFO  - 7.9.4 - 34,0 MB/512 MB - Marigiko > Start upgrade from 0.0.0
+29-09-2023 02:05:39 - INFO  - 7.9.4 - 39,9 MB/512 MB - Marigiko > Array
+(
+    [`wp_newsletter_emails`] => Created table `wp_newsletter_emails`
+)
+
+29-09-2023 02:05:39 - INFO  - 7.9.4 - 39,9 MB/512 MB - Marigiko > Array
+(
+    [`wp_newsletter_sent`] => Created table `wp_newsletter_sent`
+)
+
+29-09-2023 02:05:39 - INFO  - 7.9.4 - 39,9 MB/512 MB - Marigiko > Array
+(
+    [`wp_newsletter`] => Created table `wp_newsletter`
+)
+
+29-09-2023 02:05:39 - INFO  - 7.9.4 - 39,9 MB/512 MB - Marigiko > Array
+(
+    [`wp_newsletter_user_logs`] => Created table `wp_newsletter_user_logs`
+)
+
+29-09-2023 02:05:39 - INFO  - 7.9.4 - 39,9 MB/512 MB - Marigiko > Array
+(
+    [`wp_newsletter_stats`] => Created table `wp_newsletter_stats`
+)
+
+29-09-2023 02:05:39 - INFO  - 7.9.4 - 39,9 MB/512 MB - Marigiko > Backing up options of 0.0.0
+29-09-2023 02:05:39 - INFO  - 7.9.4 - 39,9 MB/512 MB - Marigiko > End
+29-09-2023 22:40:05 - INFO  - 7.9.5 - 33,4 MB/512 MB - Marigiko > Start upgrade from 7.9.4
+29-09-2023 22:40:05 - INFO  - 7.9.5 - 36,6 MB/512 MB - Marigiko > Array
+(
+    [`wp_newsletter_emails`] => Created table `wp_newsletter_emails`
+)
+
+29-09-2023 22:40:05 - INFO  - 7.9.5 - 36,6 MB/512 MB - Marigiko > Array
+(
+    [`wp_newsletter_sent`] => Created table `wp_newsletter_sent`
+)
+
+29-09-2023 22:40:05 - INFO  - 7.9.5 - 36,6 MB/512 MB - Marigiko > Array
+(
+    [`wp_newsletter`] => Created table `wp_newsletter`
+)
+
+29-09-2023 22:40:05 - INFO  - 7.9.5 - 36,6 MB/512 MB - Marigiko > Array
+(
+    [`wp_newsletter_user_logs`] => Created table `wp_newsletter_user_logs`
+)
+
+29-09-2023 22:40:05 - INFO  - 7.9.5 - 36,6 MB/512 MB - Marigiko > Array
+(
+    [`wp_newsletter_stats`] => Created table `wp_newsletter_stats`
+)
+
+29-09-2023 22:40:05 - INFO  - 7.9.5 - 36,6 MB/512 MB - Marigiko > Backing up options of 7.9.4
+29-09-2023 22:40:05 - INFO  - 7.9.5 - 36,7 MB/512 MB - Marigiko > End
