@@ -1,0 +1,400 @@
+{
+  "profile": {
+    "firstName": "Mario",
+    "lastName": "Aquino",
+    "nickname": "Keyz",
+    "fullName": "Sergio Mario Oscar Aquino",
+    "title": "Senior Full-Stack / Backend Developer",
+    "location": {
+      "city": "Resistencia",
+      "province": "Chaco",
+      "country": "Argentina",
+      "remote": true,
+      "openToRelocation": true
+    },
+    "targetRoles": [
+      "Backend Developer",
+      "AI Developer",
+      "Founding Engineer"
+    ],
+    "targetMarket": "US Startups"
+  },
+
+  "hero": {
+    "headline": "Building scalable systems & intelligent automation",
+    "subheadline": "Senior Full-Stack Engineer specializing in backend architecture, AI integration, and high-performance distributed systems. Turning complex problems into elegant, production-ready solutions.",
+    "ctaPrimary": {
+      "text": "View My Work",
+      "href": "#projects"
+    },
+    "ctaSecondary": {
+      "text": "Get In Touch",
+      "href": "#contact"
+    },
+    "stats": [
+      { "value": "6+", "label": "Years Experience" },
+      { "value": "50%", "label": "CI/CD Reduction" },
+      { "value": "45%", "label": "API Latency Cut" },
+      { "value": "∞", "label": "Cups of Coffee" }
+    ]
+  },
+
+  "about": {
+    "headline": "About Me",
+    "paragraphs": [
+      "I'm Mario 'Keyz' Aquino, a Senior Full-Stack Developer based in Resistencia, Argentina, with a deep passion for backend architecture, distributed systems, and the intersection of AI with modern software development.",
+      "Over the past 6+ years, I've built everything from real-time collaboration platforms to enterprise-grade web scrapers. I thrive on optimizing performance, reducing infrastructure costs, and crafting systems that scale gracefully under pressure.",
+      "Currently, I'm focused on AI-driven automation — integrating LLMs, building intelligent scraping pipelines, and creating developer tools that amplify team productivity. I'm actively seeking opportunities with US startups where I can make an immediate impact as a Backend Developer, AI Developer, or Founding Engineer.",
+      "When I'm not coding, I'm expanding my knowledge in cyber defense, contributing to open-source projects, or exploring the latest advances in AI/ML engineering."
+    ],
+    "highlights": [
+      { "icon": "rocket", "title": "Performance Obsessed", "description": "Reduced CI/CD times by 50% and API latency by 45% through strategic optimization" },
+      { "icon": "brain", "title": "AI-Native Developer", "description": "Integrating LLMs, Ollama, and LangChain into production workflows" },
+      { "icon": "shield", "title": "Architecture Focused", "description": "Clean Architecture, hexagonal design, and maintainable codebases" },
+      { "icon": "globe", "title": "Remote-Ready", "description": "Experienced in distributed teams across multiple time zones" }
+    ]
+  },
+
+  "experience": {
+    "headline": "Work Experience",
+    "jobs": [
+      {
+        "id": "magnar",
+        "company": "Magnar",
+        "role": "Scraper Developer",
+        "location": "Remote",
+        "startDate": "2026-07",
+        "endDate": null,
+        "current": true,
+        "description": "Building and maintaining high-performance web scrapers for legal document acquisition and processing.",
+        "bullets": [
+          "Design and implement scalable scraping pipelines for legal documents using Python and Node.js",
+          "Architect resilient data extraction systems handling anti-bot detection and rate limiting",
+          "Build automated data validation and cleansing pipelines ensuring data integrity",
+          "Collaborate with legal tech teams to define scraping requirements and data schemas",
+          "Optimize scraper performance achieving high throughput while maintaining reliability",
+          "Implement monitoring and alerting systems for scraper health and data freshness"
+        ],
+        "technologies": ["Python", "Node.js", "TypeScript", "Playwright", "Scrapy", "PostgreSQL", "Redis", "Docker"]
+      },
+      {
+        "id": "salesmatch",
+        "company": "SalesMatch.Ai",
+        "role": "Senior Full-Stack Developer",
+        "location": "Remote",
+        "startDate": "2024-01",
+        "endDate": "2026-06",
+        "current": false,
+        "description": "Led full-stack development of an AI-powered sales matching platform, driving infrastructure optimization and feature delivery.",
+        "bullets": [
+          "Reduced CI/CD pipeline execution time by 50% through strategic workflow optimization and parallelization",
+          "Architected microservices on AWS/K8s handling high-throughput sales data processing",
+          "Built real-time collaboration features using WebSockets and event-driven architecture",
+          "Led migration from monolithic to microservices architecture improving deployment flexibility",
+          "Mentored junior developers in TypeScript best practices and NestJS patterns",
+          "Implemented comprehensive testing strategies achieving 85%+ code coverage"
+        ],
+        "technologies": ["Node.js", "NestJS", "TypeScript", "AWS", "Kubernetes", "Docker", "PostgreSQL", "Redis", "CI/CD"]
+      },
+      {
+        "id": "syloper",
+        "company": "Syloper",
+        "role": "Full-Stack Developer",
+        "location": "Remote",
+        "startDate": "2022-06",
+        "endDate": "2023-12",
+        "current": false,
+        "description": "Developed high-performance web applications with focus on frontend excellence and API optimization.",
+        "bullets": [
+          "Reduced API latency by 45% through query optimization, caching strategies, and code refactoring",
+          "Built responsive, accessible interfaces using React and Next.js with SSR/SSG optimization",
+          "Implemented GraphQL APIs reducing over-fetching and improving client performance",
+          "Designed and maintained component library improving development velocity by 30%",
+          "Optimized Core Web Vitals achieving 95+ Lighthouse scores across all pages",
+          "Collaborated with UX team to implement pixel-perfect designs with smooth animations"
+        ],
+        "technologies": ["React", "Next.js", "TypeScript", "Node.js", "GraphQL", "PostgreSQL", "Tailwind CSS", "Vercel"]
+      },
+      {
+        "id": "flamatech",
+        "company": "FlamaTech",
+        "role": "Software Engineer",
+        "location": "Remote",
+        "startDate": "2021-01",
+        "endDate": "2022-05",
+        "current": false,
+        "description": "Developed enterprise applications using Clean Architecture principles and modern backend patterns.",
+        "bullets": [
+          "Designed and implemented RESTful APIs following Clean Architecture and SOLID principles",
+          "Built domain-driven models with proper separation of concerns and dependency injection",
+          "Implemented event-driven messaging using Apache Kafka for asynchronous processing",
+          "Created comprehensive API documentation using OpenAPI/Swagger improving developer experience",
+          "Participated in code reviews establishing coding standards and best practices",
+          "Developed automated testing suites including unit, integration, and e2e tests"
+        ],
+        "technologies": ["Node.js", "TypeScript", "Clean Architecture", "Apache Kafka", "PostgreSQL", "Docker", "Jest", "OpenAPI"]
+      },
+      {
+        "id": "freelance-early",
+        "company": "Independent Projects",
+        "role": "Full-Stack Developer",
+        "location": "Resistencia, Argentina",
+        "startDate": "2020-01",
+        "endDate": "2020-12",
+        "current": false,
+        "description": "Delivered custom web solutions for local businesses and personal projects, honing full-stack skills.",
+        "bullets": [
+          "Built custom CMS and e-commerce solutions for local business clients",
+          "Developed RESTful APIs with authentication and authorization systems",
+          "Implemented responsive designs with modern CSS frameworks",
+          "Managed end-to-end project lifecycle from requirements to deployment",
+          "Gained experience with cloud deployment and server management"
+        ],
+        "technologies": ["JavaScript", "Node.js", "Express", "React", "MongoDB", "MySQL", "AWS", "Git"]
+      },
+      {
+        "id": "academic-projects",
+        "company": "UTN University Projects",
+        "role": "Student Developer",
+        "location": "Resistencia, Argentina",
+        "startDate": "2018-01",
+        "endDate": "2019-12",
+        "current": false,
+        "description": "Applied academic knowledge to real-world software projects during Information Systems Engineering studies.",
+        "bullets": [
+          "Developed database-driven applications for university coursework",
+          "Collaborated on team projects using Agile methodologies",
+          "Built desktop applications with Java and Swing for academic assignments",
+          "Participated in coding competitions and hackathons",
+          "Established strong fundamentals in algorithms, data structures, and system design"
+        ],
+        "technologies": ["Java", "Python", "SQL", "Git", "Linux", "Data Structures", "Algorithms"]
+      }
+    ]
+  },
+
+  "skills": {
+    "headline": "Technical Skills",
+    "categories": [
+      {
+        "id": "backend",
+        "name": "Backend Development",
+        "icon": "server",
+        "skills": [
+          { "name": "Node.js", "level": 95, "years": 6 },
+          { "name": "NestJS", "level": 90, "years": 4 },
+          { "name": "TypeScript", "level": 95, "years": 5 },
+          { "name": "Python", "level": 80, "years": 4 },
+          { "name": "REST APIs", "level": 95, "years": 6 },
+          { "name": "GraphQL", "level": 80, "years": 3 },
+          { "name": "PostgreSQL", "level": 85, "years": 5 },
+          { "name": "MongoDB", "level": 75, "years": 4 },
+          { "name": "Redis", "level": 80, "years": 4 }
+        ]
+      },
+      {
+        "id": "frontend",
+        "name": "Frontend Development",
+        "icon": "layout",
+        "skills": [
+          { "name": "React", "level": 90, "years": 5 },
+          { "name": "Next.js", "level": 88, "years": 4 },
+          { "name": "HTML5/CSS3", "level": 90, "years": 6 },
+          { "name": "Tailwind CSS", "level": 85, "years": 3 },
+          { "name": "JavaScript (ES6+)", "level": 95, "years": 6 },
+          { "name": "HTMX", "level": 75, "years": 1 },
+          { "name": "WebGL/Three.js", "level": 60, "years": 1 }
+        ]
+      },
+      {
+        "id": "ai",
+        "name": "AI & Machine Learning",
+        "icon": "brain",
+        "skills": [
+          { "name": "LangChain", "level": 75, "years": 1 },
+          { "name": "Ollama", "level": 80, "years": 1 },
+          { "name": "OpenAI API", "level": 80, "years": 2 },
+          { "name": "Prompt Engineering", "level": 85, "years": 2 },
+          { "name": "RAG Systems", "level": 75, "years": 1 },
+          { "name": "Vector Databases", "level": 70, "years": 1 }
+        ]
+      },
+      {
+        "id": "devops",
+        "name": "DevOps & Cloud",
+        "icon": "cloud",
+        "skills": [
+          { "name": "AWS", "level": 85, "years": 4 },
+          { "name": "Docker", "level": 90, "years": 5 },
+          { "name": "Kubernetes", "level": 80, "years": 3 },
+          { "name": "CI/CD", "level": 88, "years": 4 },
+          { "name": "GitHub Actions", "level": 85, "years": 3 },
+          { "name": "Linux", "level": 80, "years": 5 },
+          { "name": "Nginx", "level": 75, "years": 4 }
+        ]
+      },
+      {
+        "id": "architecture",
+        "name": "Architecture & Patterns",
+        "icon": "layers",
+        "skills": [
+          { "name": "Clean Architecture", "level": 90, "years": 4 },
+          { "name": "Microservices", "level": 85, "years": 4 },
+          { "name": "Event-Driven Design", "level": 80, "years": 3 },
+          { "name": "Domain-Driven Design", "level": 78, "years": 3 },
+          { "name": "SOLID Principles", "level": 90, "years": 5 },
+          { "name": "System Design", "level": 82, "years": 4 }
+        ]
+      },
+      {
+        "id": "messaging",
+        "name": "Messaging & Data",
+        "icon": "message-square",
+        "skills": [
+          { "name": "Apache Kafka", "level": 78, "years": 3 },
+          { "name": "RabbitMQ", "level": 70, "years": 2 },
+          { "name": "WebSockets", "level": 82, "years": 4 },
+          { "name": "Web Scraping", "level": 90, "years": 3 },
+          { "name": "Playwright", "level": 85, "years": 2 },
+          { "name": "Scrapy", "level": 80, "years": 2 }
+        ]
+      }
+    ]
+  },
+
+  "projects": {
+    "headline": "Featured Projects",
+    "items": [
+      {
+        "id": "intelligent-scraper",
+        "title": "Intelligent Legal Document Scraper",
+        "tagline": "AI-powered pipeline for automated legal document acquisition",
+        "description": "A sophisticated web scraping platform that combines traditional scraping techniques with AI-powered content extraction. Built to handle anti-bot detection, dynamic content rendering, and complex data validation at scale.",
+        "details": [
+          "Multi-layered scraping architecture with automatic retry and fallback mechanisms",
+          "AI-powered content classification and entity extraction using local LLMs",
+          "Real-time monitoring dashboard with alerts for pipeline health",
+          "Distributed processing handling thousands of documents per hour",
+          "Automated data validation ensuring 99.5%+ accuracy"
+        ],
+        "technologies": ["Python", "Playwright", "Ollama", "LangChain", "PostgreSQL", "Redis", "Docker"],
+        "image": "/images/projects/scraper.jpg",
+        "github": null,
+        "live": null,
+        "featured": true
+      },
+      {
+        "id": "salesmatch-platform",
+        "title": "SalesMatch.Ai Platform",
+        "tagline": "AI-driven sales intelligence and matching platform",
+        "description": "Led the development of a comprehensive sales matching platform that uses AI to connect businesses with ideal prospects. Built the entire backend infrastructure and optimized CI/CD pipelines for rapid iteration.",
+        "details": [
+          "Microservices architecture on AWS EKS handling 10K+ concurrent users",
+          "Real-time matching engine processing leads with sub-100ms latency",
+          "Optimized CI/CD reducing deployment time from 45min to 22min",
+          "Event-driven architecture using WebSockets for live updates",
+          "Comprehensive analytics dashboard for sales performance tracking"
+        ],
+        "technologies": ["Node.js", "NestJS", "TypeScript", "AWS", "Kubernetes", "PostgreSQL", "Redis"],
+        "image": "/images/projects/salesmatch.jpg",
+        "github": null,
+        "live": null,
+        "featured": true
+      },
+      {
+        "id": "realtime-collab",
+        "title": "Real-Time Collaboration Suite",
+        "tagline": "WebSocket-powered collaborative workspace",
+        "description": "Built a real-time collaboration platform featuring live document editing, presence indicators, and conflict resolution. Designed for distributed teams requiring instant synchronization across multiple clients.",
+        "details": [
+          "Operational transformation algorithm for conflict-free collaborative editing",
+          "Presence system showing active users and cursor positions in real-time",
+          "Horizontal scaling with Redis pub/sub for multi-instance synchronization",
+          "End-to-end encryption for sensitive document content",
+          "Offline-first architecture with automatic sync on reconnection"
+        ],
+        "technologies": ["Node.js", "TypeScript", "WebSockets", "React", "Redis", "PostgreSQL", "Docker"],
+        "image": "/images/projects/collab.jpg",
+        "github": "https://github.com/Marigiko/realtime-collab",
+        "live": null,
+        "featured": true
+      }
+    ]
+  },
+
+  "education": {
+    "headline": "Education",
+    "items": [
+      {
+        "id": "utn",
+        "institution": "Universidad Tecnológica Nacional (UTN)",
+        "degree": "Information Systems Engineering",
+        "status": "In Progress",
+        "location": "Resistencia, Argentina",
+        "startDate": "2018-01",
+        "endDate": null,
+        "description": "Comprehensive engineering program covering software development, systems analysis, database design, and project management."
+      },
+      {
+        "id": "undef",
+        "institution": "Universidad de la Defensa (UNDEF)",
+        "degree": "Cyber Defense",
+        "status": "In Progress",
+        "location": "Argentina",
+        "startDate": "2023-01",
+        "endDate": null,
+        "description": "Specialized program in cybersecurity, ethical hacking, and defensive security strategies."
+      }
+    ]
+  },
+
+  "contact": {
+    "headline": "Let's Connect",
+    "subheadline": "I'm always open to discussing new opportunities, interesting projects, or just chatting about tech.",
+    "email": "marioaquinojob@gmail.com",
+    "phone": "+54 9 362 5455786",
+    "location": "Resistencia, Chaco, Argentina",
+    "availability": "Available for full-time roles, consulting, and interesting side projects",
+    "responseTime": "Usually within 24 hours"
+  },
+
+  "social": {
+    "headline": "Find Me Online",
+    "links": [
+      {
+        "platform": "GitHub",
+        "url": "https://github.com/Marigiko",
+        "username": "@Marigiko",
+        "icon": "github"
+      },
+      {
+        "platform": "LinkedIn",
+        "url": "https://linkedin.com/in/keyzdev",
+        "username": "keyzdev",
+        "icon": "linkedin"
+      },
+      {
+        "platform": "Email",
+        "url": "mailto:marioaquinojob@gmail.com",
+        "username": "marioaquinojob@gmail.com",
+        "icon": "mail"
+      }
+    ]
+  },
+
+  "languages": {
+    "headline": "Languages",
+    "items": [
+      { "language": "Spanish", "level": "Native", "code": "es" },
+      { "language": "English", "level": "B2+", "code": "en" },
+      { "language": "Portuguese", "level": "B2", "code": "pt" }
+    ]
+  },
+
+  "metadata": {
+    "version": "2.0",
+    "lastUpdated": "2026-08-21",
+    "author": "Mario 'Keyz' Aquino",
+    "description": "Portfolio v2.0 - Senior Full-Stack / Backend Developer portfolio"
+  }
+}

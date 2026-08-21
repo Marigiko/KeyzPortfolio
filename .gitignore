@@ -1,0 +1,19 @@
+# Database & temp files
+.mysql-data/
+.mysql.log
+.mysql.sock
+.mysql.sock.lock
+.mysql.pid
+.php-server.log
+wp-cli.phar
+wp-router.php
+wp-content/debug.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp

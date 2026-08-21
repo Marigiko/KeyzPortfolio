@@ -1,0 +1,1467 @@
+/*
+ * ═══════════════════════════════════════════════════════════════════════════════════
+ * KEYZ PORTFOLIO v2.0 — VISUAL POLISH & PERFORMANCE
+ * ═══════════════════════════════════════════════════════════════════════════════════
+ * Mario "Keyz" Aquino | Senior Full-Stack/Backend Developer
+ *
+ * Description: Cutting-edge visual polish layer featuring scroll progress indicator,
+ *              custom neon cursor with glow, cinematic loading screen, ambient animated
+ *              background blobs, advanced scrollbar customization, holographic selection
+ *              styling, and comprehensive performance optimizations.
+ *
+ * Technologies: CSS Scroll-Driven Animations, Custom Cursors, will-change Hints,
+ *               contain Property, prefers-reduced-motion, print-styles,
+ *               Individual Transform Properties, @property (Houdini)
+ * ═══════════════════════════════════════════════════════════════════════════════════
+ */
+
+/* ╔═══════════════════════════════════════════════════════════════════════════════╗
+   ║  SECTION 1: CSS HOUDINI — CUSTOM PROPERTY ANIMATIONS                         ║
+   ╚═══════════════════════════════════════════════════════════════════════════════╝ */
+
+/* Register custom properties for animation (Chrome/Edge/Safari) */
+@property --gradient-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --glow-opacity {
+  syntax: '<number>';
+  initial-value: 0;
+  inherits: false;
+}
+
+@property --progress-fill {
+  syntax: '<percentage>';
+  initial-value: 0%;
+  inherits: false;
+}
+
+@property --blob-scale {
+  syntax: '<number>';
+  initial-value: 1;
+  inherits: false;
+}
+
+/* ╔═══════════════════════════════════════════════════════════════════════════════╗
+   ║  SECTION 2: SCROLL PROGRESS INDICATOR                                         ║
+   ╚═══════════════════════════════════════════════════════════════════════════════╝ */
+
+/* Primary scroll progress bar — fixed at top, neon gradient with glow */
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: var(--z-max, 9999);
+  background: linear-gradient(
+    90deg,
+    var(--color-neon-blue, #00d4ff),
+    var(--color-neon-cyan, #00f5d4),
+    var(--color-neon-purple, #b388ff),
+    var(--color-neon-pink, #f72585)
+  );
+  background-size: 200% 100%;
+  transform-origin: left;
+  transform: scaleX(0);
+  animation: scroll-progress-linear linear;
+  animation-timeline: scroll(root);
+  box-shadow:
+    0 0 8px rgba(0, 212, 255, 0.6),
+    0 0 20px rgba(0, 212, 255, 0.3),
+    0 0 40px rgba(0, 245, 212, 0.15);
+}
+
+/* Animated gradient flow within the progress bar */
+.scroll-progress-bar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: progress-shimmer 2s ease-in-out infinite;
+}
+
+@keyframes scroll-progress-linear {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes progress-shimmer {
+  0%, 100% { transform: translateX(-100%); }
+  50% { transform: translateX(100%); }
+}
+
+/* Secondary scroll progress — circular indicator in corner */
+.scroll-progress-circular {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 48px;
+  height: 48px;
+  z-index: var(--z-sticky, 200);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+/* Show circular indicator after scrolling */
+body:not([data-scroll='0']) .scroll-progress-circular {
+  opacity: 1;
+}
+
+.scroll-progress-circular svg {
+  transform: rotate(-90deg);
+  width: 100%;
+  height: 100%;
+}
+
+.scroll-progress-circular circle {
+  fill: none;
+  stroke-width: 3;
+}
+
+.scroll-progress-circular .track {
+  stroke: rgba(255, 255, 255, 0.08);
+}
+
+.scroll-progress-circular .indicator {
+  stroke: url(#scroll-gradient);
+  stroke-linecap: round;
+  stroke-dasharray: 125.6;
+  stroke-dashoffset: 125.6;
+  animation: circular-progress linear;
+  animation-timeline: scroll(root);
+  filter: drop-shadow(0 0 4px rgba(0, 212, 255, 0.6));
+}
+
+@keyframes circular-progress {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Scroll percentage text inside circular indicator */
+.scroll-progress-circular::after {
+  content: attr(data-percent) '%';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-family-mono, 'JetBrains Mono', monospace);
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: var(--color-neon-cyan, #00f5d4);
+}
+
+/* ╔═══════════════════════════════════════════════════════════════════════════════╗
+   ║  SECTION 3: CUSTOM CURSOR WITH NEON GLOW                                      ║
+   ╚═══════════════════════════════════════════════════════════════════════════════╝ */
+
+/* Hide default cursor on desktop devices */
+@media (hover: hover) and (pointer: fine) {
+  body.custom-cursor-active {
+    cursor: none;
+  }
+
+  body.custom-cursor-active a,
+  body.custom-cursor-active button,
+  body.custom-cursor-active [role="button"],
+  body.custom-cursor-active .interactive {
+    cursor: none;
+  }
+}
+
+/* Main cursor dot — follows pointer precisely */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background: var(--color-neon-cyan, #00f5d4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: calc(var(--z-max, 9999) + 1);
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, background 0.2s ease, opacity 0.15s ease;
+  will-change: transform, width, height;
+  mix-blend-mode: screen;
+  box-shadow:
+    0 0 8px var(--color-neon-cyan, #00f5d4),
+    0 0 20px rgba(0, 245, 212, 0.6),
+    0 0 40px rgba(0, 245, 212, 0.3);
+  opacity: 0;
+}
+
+/* Show cursor when mouse moves */
+body.custom-cursor-active .cursor-dot {
+  opacity: 1;
+}
+
+/* Cursor ring — larger, follows with slight delay */
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(0, 212, 255, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: var(--z-max, 9999);
+  transform: translate(-50%, -50%);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              border-width 0.3s ease,
+              opacity 0.15s ease;
+  will-change: transform, width, height;
+  opacity: 0;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+body.custom-cursor-active .cursor-ring {
+  opacity: 1;
+}
+
+/* Ring glow layer */
+.cursor-ring::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 212, 255, 0.15);
+  pointer-events: none;
+}
+
+/* Cursor states — hover over interactive elements */
+.cursor-dot.hover {
+  width: 12px;
+  height: 12px;
+  background: var(--color-neon-pink, #f72585);
+  box-shadow:
+    0 0 12px var(--color-neon-pink, #f72585),
+    0 0 30px rgba(247, 37, 133, 0.6),
+    0 0 60px rgba(247, 37, 133, 0.3);
+}
+
+.cursor-ring.hover {
+  width: 56px;
+  height: 56px;
+  border-color: rgba(247, 37, 133, 0.6);
+  border-width: 2px;
+}
+
+/* Cursor states — active/click */
+.cursor-dot.active {
+  width: 6px;
+  height: 6px;
+  background: #fff;
+}
+
+.cursor-ring.active {
+  width: 28px;
+  height: 28px;
+}
+
+/* Cursor states — text selection */
+.cursor-dot.text-hover {
+  width: 3px;
+  height: 24px;
+  border-radius: 2px;
+  background: var(--color-neon-cyan, #00f5d4);
+  box-shadow: 0 0 10px rgba(0, 245, 212, 0.8);
+}
+
+.cursor-ring.text-hover {
+  width: 24px;
+  height: 24px;
+  border-style: dashed;
+}
+
+/* Cursor trail — ghost dot that lags behind */
+.cursor-trail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: calc(var(--z-max, 9999) - 1);
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(0, 212, 255, 0.15) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+body.custom-cursor-active .cursor-trail {
+  opacity: 1;
+}
+
+/* ╔═══════════════════════════════════════════════════════════════════════════════╗
+   ║  SECTION 4: CINEMATIC LOADING SCREEN                                          ║
+   ╚═══════════════════════════════════════════════════════════════════════════════╝ */
+
+/* Loading overlay — full viewport, cyberpunk aesthetic */
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-max, 9999) + 10);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  background: var(--color-bg-primary, #0a0a0f);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.6s ease;
+  will-change: opacity, visibility;
+}
+
+/* Fade out when loaded */
+.loading-screen.loaded {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Animated grid background in loader */
+.loading-screen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  animation: loader-grid-pan 8s linear infinite;
+}
+
+@keyframes loader-grid-pan {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(40px, 40px); }
+}
+
+/* Loading logo / brand mark */
+.loading-brand {
+  position: relative;
+  font-family: var(--font-family-mono, 'JetBrains Mono', monospace);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: transparent;
+  background: linear-gradient(
+    90deg,
+    var(--color-neon-blue, #00d4ff),
+    var(--color-neon-cyan, #00f5d4),
+    var(--color-neon-purple, #b388ff)
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: loading-brand-flow 2s linear infinite;
+}
+
+@keyframes loading-brand-flow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* Glitch effect layers for brand */
+.loading-brand::before,
+.loading-brand::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  opacity: 0;
+  animation: glitch-text 3s infinite;
+}
+
+.loading-brand::before {
+  background: var(--color-neon-cyan, #00f5d4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation-delay: 0.1s;
+}
+
+.loading-brand::after {
+  background: var(--color-neon-pink, #f72585);
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation-delay: 0.2s;
+}
+
+@keyframes glitch-text {
+  0%, 92%, 100% { opacity: 0; transform: translate(0); }
+  93% { opacity: 0.8; transform: translate(-2px, 1px); }
+  94% { opacity: 0; transform: translate(0); }
+  95% { opacity: 0.6; transform: translate(2px, -1px); }
+  96% { opacity: 0; transform: translate(0); }
+}
+
+/* Loading progress bar container */
+.loading-bar-container {
+  width: min(280px, 70vw);
+  height: 2px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-full, 9999px);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Loading progress bar fill */
+.loading-bar-fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    var(--color-neon-blue, #00d4ff),
+    var(--color-neon-cyan, #00f5d4)
+  );
+  border-radius: inherit;
+  transform-origin: left;
+  animation: loading-bar-grow 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  box-shadow: 0 0 12px rgba(0, 245, 212, 0.6);
+}
+
+@keyframes loading-bar-grow {
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+
+/* Loading bar shimmer */
+.loading-bar-fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+  animation: loading-bar-shimmer 1s ease-in-out infinite;
+}
+
+@keyframes loading-bar-shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Loading percentage text */
+.loading-percent {
+  font-family: var(--font-family-mono, 'JetBrains Mono', monospace);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+}
+
+/* Loading status messages */
+.loading-status {
+  font-family: var(--font-family-mono, 'JetBrains Mono', monospace);
+  font-size: 0.7rem;
+  color: var(--color-neon-cyan, #00f5d4);
+  opacity: 0.6;
+  letter-spacing: 0.1em;
+  animation: loading-blink 1.2s step-end infinite;
+}
+
+@keyframes loading-blink {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0.2; }
+}
+
+/* Loading particles — floating dots around center */
+.loading-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-neon-blue, #00d4ff);
+  opacity: 0;
+  animation: loading-particle-float 3s ease-in-out infinite;
+}
+
+.loading-particle:nth-child(1) { animation-delay: 0s; left: 30%; }
+.loading-particle:nth-child(2) { animation-delay: 0.4s; left: 50%; }
+.loading-particle:nth-child(3) { animation-delay: 0.8s; left: 70%; }
+.loading-particle:nth-child(4) { animation-delay: 1.2s; left: 40%; }
+.loading-particle:nth-child(5) { animation-delay: 1.6s; left: 60%; }
+
+@keyframes loading-particle-float {
+  0%, 100% {
+    transform: translateY(0) scale(0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+    transform: translateY(-10px) scale(1);
+  }
+  80% {
+    opacity: 0.8;
+    transform: translateY(-40px) scale(1);
+  }
+  90% {
+    transform: translateY(-50px) scale(0);
+    opacity: 0;
+  }
+}
+
+/* ╔═══════════════════════════════════════════════════════════════════════════════╗
+   ║  SECTION 5: AMBIENT ANIMATED BACKGROUND BLOBS                                 ║
+   ╚═══════════════════════════════════════════════════════════════════════════════╝ */
+
+/* Blob container — fixed behind all content */
+.ambient-blobs {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  contain: layout style;
+}
+
+/* Individual blob base */
+.ambient-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  animation: blob-drift var(--blob-duration, 25s) ease-in-out infinite alternate;
+  opacity: var(--blob-opacity, 0.35);
+}
+
+/* Blob 1 — Violet giant, top-left */
+.ambient-blob--1 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--color-neon-violet, #7b2ff7) 0%, transparent 70%);
+  top: -15%;
+  left: -10%;
+  --blob-duration: 22s;
+  --blob-opacity: 0.35;
+  animation-name: blob-drift-1;
+}
+
+/* Blob 2 — Electric blue, bottom-right */
+.ambient-blob--2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, var(--color-neon-blue, #00d4ff) 0%, transparent 70%);
+  bottom: -15%;
+  right: -8%;
+  --blob-duration: 28s;
+  --blob-opacity: 0.3;
+  animation-name: blob-drift-2;
+}
+
+/* Blob 3 — Cyan accent, center-right */
+.ambient-blob--3 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, var(--color-neon-cyan, #00f5d4) 0%, transparent 70%);
+  top: 30%;
+  right: 10%;
+  --blob-duration: 32s;
+  --blob-opacity: 0.2;
+  animation-name: blob-drift-3;
+}
+
+/* Blob 4 — Magenta small, center-left */
+.ambient-blob--4 {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, var(--color-neon-pink, #f72585) 0%, transparent 70%);
+  top: 50%;
+  left: 5%;
+  --blob-duration: 26s;
+  --blob-opacity: 0.2;
+  animation-name: blob-drift-4;
+}
+
+/* Blob 5 — Purple subtle, top-center */
+.ambient-blob--5 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, var(--color-neon-purple, #b388ff) 0%, transparent 70%);
+  top: 10%;
+  left: 40%;
+  --blob-duration: 30s;
+  --blob-opacity: 0.15;
+  animation-name: blob-drift-5;
+}
+
+/* Blob drift keyframes — unique paths for organic movement */
+@keyframes blob-drift-1 {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(80px, 60px) scale(1.1); }
+  66% { transform: translate(-40px, 120px) scale(0.95); }
+  100% { transform: translate(60px, 180px) scale(1.05); }
+}
+
+@keyframes blob-drift-2 {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-100px, -50px) scale(1.15); }
+  66% { transform: translate(-60px, -120px) scale(0.9); }
+  100% { transform: translate(-120px, -80px) scale(1.08); }
+}
+
+@keyframes blob-drift-3 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-80px, 100px) scale(1.12); }
+  100% { transform: translate(40px, 180px) scale(0.95); }
+}
+
+@keyframes blob-drift-4 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(100px, -60px) scale(1.08); }
+  100% { transform: translate(60px, 80px) scale(0.92); }
+}
+
+@keyframes blob-drift-5 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-50px, 70px) scale(1.05); }
+  100% { transform: translate(70px, 120px) scale(0.98); }
+}
+
+/* Blob mouse parallax — subtle drift toward cursor */
+.ambient-blobs:hover .ambient-blob--1 {
+  transform: translate(20px, 10px) scale(1.02);
+  transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ambient-blobs:hover .ambient-blob--2 {
+  transform: translate(-20px, -10px) scale(1.02);
+  transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Noise texture overlay for depth */
+.ambient-blobs::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+  animation: noise-shift 0.5s steps(5) infinite;
+}
+
+@keyframes noise-shift {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-5px, 5px); }
+  40% { transform: translate(5px, -5px); }
+  60% { transform: translate(-3px, -3px); }
+  80% { transform: translate(3px, 3px); }
+  100% { transform: translate(0, 0); }
+}
+
+/* ╔═══════════════════════════════════════════════════════════════════════════════╗
+   ║  SECTION 6: ADVANCED SCROLLBAR CUSTOMIZATION                                  ║
+   ╚═══════════════════════════════════════════════════════════════════════════════╝ */
+
+/* Webkit scrollbar — neon cyberpunk style */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary, #0f0f1a);
+  border-left: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    var(--color-neon-blue, #00d4ff),
+    var(--color-neon-purple, #b388ff)
+  );
+  border-radius: var(--radius-full, 9999px);
+  border: 2px solid var(--color-bg-secondary, #0f0f1a);
+  box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    var(--color-neon-cyan, #00f5d4),
+    var(--color-neon-blue, #00d4ff)
+  );
+  box-shadow:
+    inset 0 0 4px rgba(255, 255, 255, 0.15),
+    0 0 8px rgba(0, 212, 255, 0.3);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(
+    180deg,
+    var(--color-neon-pink, #f72585),
+    var(--color-neon-purple, #b388ff)
+  );
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--color-bg-secondary, #0f0f1a);
+}
+
+/* Firefox scrollbar */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-neon-blue, #00d4ff) var(--color-bg-secondary, #0f0f1a);
+}
+
+/* ╔═══════════════════════════════════════════════════════════════════════════════╗
+   ║  SECTION 7: HOLOGRAPHIC SELECTION STYLING                                     ║
+   ╚═══════════════════════════════════════════════════════════════════════════════╝ */
+
+/* Primary selection — neon cyan glow */
+::selection {
+  background: rgba(0, 212, 255, 0.2);
+  color: #fff;
+  text-shadow: 0 0 8px rgba(0, 212, 255, 0.4);
+}
+
+::-moz-selection {
+  background: rgba(0, 212, 255, 0.2);
+  color: #fff;
+  text-shadow: 0 0 8px rgba(0, 212, 255, 0.4);
+}
+
+/* Selection within glass elements — enhanced contrast */
+.glass::selection,
+.glass-card::selection,
+.glass-strong::selection {
+  background: rgba(0, 245, 212, 0.25);
+  color: #fff;
+  text-shadow: 0 0 6px rgba(0, 245, 212, 0.5);
+}
+
+.glass::-moz-selection,
+.glass-card::-moz-selection,
+.glass-strong::-moz-selection {
+  background: rgba(0, 245, 212, 0.25);
+  color: #fff;
+  text-shadow: 0 0 6px rgba(0, 245, 212, 0.5);
+}
+
+/* Selection within headings — purple accent */
+h1::selection,
+h2::selection,
+h3::selection {
+  background: rgba(179, 136, 255, 0.25);
+  color: #fff;
+  text-shadow: 0 0 6px rgba(179, 136, 255, 0.5);
+}
+
+h1::-moz-selection,
+h2::-moz-selection,
+h3::-moz-selection {
+  background: rgba(179, 136, 255, 0.25);
+  color: #fff;
+  text-shadow: 0 0 6px rgba(179, 136, 255, 0.5);
+}
+
+/* ╔═══════════════════════════════════════════════════════════════════════════════╗
+   ║  SECTION 8: PERFORMANCE OPTIMIZATIONS — will-change & contain                ║
+   ╚═══════════════════════════════════════════════════════════════════════════════╝ */
+
+/* GPU-accelerated layers — will-change hints for animated elements */
+.will-animate {
+  will-change: transform, opacity;
+}
+
+.will-transform {
+  will-change: transform;
+}
+
+.will-opacity {
+  will-change: opacity;
+}
+
+/* Remove will-change after animation completes to free GPU memory */
+.will-animate.animation-complete,
+.will-transform.animation-complete,
+.will-opacity.animation-complete {
+  will-change: auto;
+}
+
+/* Layout containment — isolate rendering for performance */
+.contain-layout {
+  contain: layout;
+}
+
+.contain-style {
+  contain: style;
+}
+
+.contain-paint {
+  contain: paint;
+}
+
+.contain-content {
+  contain: content;
+}
+
+.contain-strict {
+  contain: strict;
+}
+
+/* Section-level containment for scroll performance */
+.section {
+  contain: layout style;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
+}
+
+/* Card containment — prevents layout recalculation cascade */
+.glass-card,
+.card-3d {
+  contain: layout style;
+}
+
+/* 3D scene containment — isolate perspective calculations */
+.perspective-container,
+.perspective-stage,
+.parallax-container {
+  contain: layout style paint;
+}
+
+/* Content visibility for off-screen sections */
+.below-fold {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
+
+/* ╔═══════════════════════════════════════════════════════════════════════════════╗
+   ║  SECTION 9: PRINT STYLES                                                      ║
+   ╚═══════════════════════════════════════════════════════════════════════════════╝ */
+
+@media print {
+  /* Reset background for ink efficiency */
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    filter: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Page setup */
+  @page {
+    margin: 1.5cm 2cm;
+    size: A4;
+  }
+
+  @page :first {
+    margin-top: 1cm;
+  }
+
+  /* Body typography for print */
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 11pt;
+    line-height: 1.5;
+    color: #000;
+    background: #fff;
+  }
+
+  /* Hide non-essential elements */
+  .scroll-progress-bar,
+  .scroll-progress-circular,
+  .cursor-dot,
+  .cursor-ring,
+  .cursor-trail,
+  .loading-screen,
+  .ambient-blobs,
+  .nav-toggle,
+  .floating-object,
+  .floating-cube,
+  .floating-polyhedron,
+  .floating-ring,
+  .floating-particle,
+  nav,
+  .no-print {
+    display: none !important;
+  }
+
+  /* Show print-only elements */
+  .print-only {
+    display: block !important;
+  }
+
+  /* Headings for print */
+  h1, h2, h3, h4, h5, h6 {
+    color: #000;
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+
+  h1 { font-size: 22pt; }
+  h2 { font-size: 16pt; }
+  h3 { font-size: 13pt; }
+
+  /* Links — show URL after text */
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+
+  a[href]::after {
+    content: ' (' attr(href) ')';
+    font-size: 9pt;
+    color: #555;
+    word-break: break-all;
+  }
+
+  /* Don't show URL for internal anchors */
+  a[href^="#"]::after,
+  a[href^="javascript:"]::after {
+    content: '';
+  }
+
+  /* Cards and sections */
+  .glass-card,
+  .card-3d,
+  .section {
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    page-break-inside: avoid;
+    contain: none;
+    content-visibility: visible;
+  }
+
+  /* Images */
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+
+  /* Page breaks */
+  .page-break-before {
+    page-break-before: always;
+  }
+
+  .page-break-after {
+    page-break-after: always;
+  }
+
+  /* Contact info header for print */
+  .print-header {
+    border-bottom: 2px solid #000;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .print-header h1 {
+    margin-bottom: 0.25rem;
+  }
+
+  .print-header .contact {
+    font-size: 10pt;
+    color: #333;
+  }
+
+  /* Skills list */
+  .skills-list {
+    columns: 2;
+    column-gap: 2rem;
+  }
+
+  /* Experience timeline */
+  .experience-item {
+    page-break-inside: avoid;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #ddd;
+  }
+
+  /* Footer for print */
+  .print-footer {
+    margin-top: 2rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid #ccc;
+    font-size: 8pt;
+    color: #666;
+    text-align: center;
+  }
+}
+
+/* ╔═══════════════════════════════════════════════════════════════════════════════╗
+   ║  SECTION 10: PREFERS-REDUCED-MOTION — COMPREHENSIVE FALLBACKS                ║
+   ╚═══════════════════════════════════════════════════════════════════════════════╝ */
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  /* Disable all animations */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Remove will-change to free resources */
+  .will-animate,
+  .will-transform,
+  .will-opacity,
+  .card-3d,
+  .floating-object,
+  .floating-cube,
+  .floating-polyhedron,
+  .floating-ring,
+  .floating-particle,
+  .ambient-blob,
+  .parallax-layer {
+    will-change: auto !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Reset transforms */
+  .card-3d,
+  .card-3d__inner,
+  .reveal-panel,
+  .floating-object,
+  .ambient-blob {
+    transform: none !important;
+  }
+
+  /* Show all scroll-reveal content immediately */
+  .scroll-reveal,
+  .scroll-reveal-left,
+  .scroll-reveal-right,
+  .scroll-reveal-scale,
+  .scroll-slide-left,
+  .scroll-slide-right,
+  .scroll-scale,
+  .scroll-rotate-in,
+  .scroll-fade-up,
+  .reveal-panel {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  /* Disable custom cursor — restore default */
+  body.custom-cursor-active {
+    cursor: auto;
+  }
+
+  .cursor-dot,
+  .cursor-ring,
+  .cursor-trail {
+    display: none !important;
+  }
+
+  /* Disable loading screen animation */
+  .loading-screen {
+    transition: opacity 0.1s ease !important;
+  }
+
+  .loading-bar-fill {
+    animation: none !important;
+    transform: scaleX(1) !important;
+  }
+
+  .loading-brand::before,
+  .loading-brand::after {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+
+  /* Disable ambient blobs animation */
+  .ambient-blobs {
+    opacity: 0.5;
+  }
+
+  .ambient-blob {
+    animation: none !important;
+  }
+
+  /* Disable noise overlay animation */
+  .ambient-blobs::after {
+    animation: none !important;
+  }
+
+  /* Disable progress bar shimmer */
+  .scroll-progress-bar::after {
+    animation: none !important;
+  }
+
+  /* Disable loading particles */
+  .loading-particle {
+    display: none !important;
+  }
+
+  /* Disable view transitions */
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* ╔═══════════════════════════════════════════════════════════════════════════════╗
+   ║  SECTION 11: ADDITIONAL VISUAL POLISH EFFECTS                                 ║
+   ╚═══════════════════════════════════════════════════════════════════════════════╝ */
+
+/* Holographic shimmer on hover for key elements */
+.holographic {
+  position: relative;
+  overflow: hidden;
+}
+
+.holographic::before {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(0, 212, 255, 0.08) 40%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(247, 37, 133, 0.08) 60%,
+    transparent 70%
+  );
+  background-size: 250% 250%;
+  animation: holographic-sweep 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes holographic-sweep {
+  0%, 100% { background-position: 200% 200%; }
+  50% { background-position: -200% -200%; }
+}
+
+/* Text gradient animation for headings */
+.text-gradient-animated {
+  background: linear-gradient(
+    90deg,
+    var(--color-neon-blue, #00d4ff),
+    var(--color-neon-cyan, #00f5d4),
+    var(--color-neon-purple, #b388ff),
+    var(--color-neon-pink, #f72585),
+    var(--color-neon-blue, #00d4ff)
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: text-gradient-flow 6s linear infinite;
+}
+
+@keyframes text-gradient-flow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+/* Glow pulse for CTAs */
+.glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 15px rgba(0, 212, 255, 0.3),
+      0 0 30px rgba(0, 212, 255, 0.1);
+  }
+  50% {
+    box-shadow:
+      0 0 25px rgba(0, 212, 255, 0.5),
+      0 0 50px rgba(0, 212, 255, 0.2),
+      0 0 80px rgba(0, 212, 255, 0.1);
+  }
+}
+
+/* Scan line effect — subtle CRT-style overlay */
+.scan-lines {
+  position: relative;
+}
+
+.scan-lines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Fade-in on load for main content */
+.content-fade-in {
+  animation: content-fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.2s;
+}
+
+@keyframes content-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Magnetic hover effect base */
+.magnetic {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* Border glow animation */
+.border-glow {
+  position: relative;
+}
+
+.border-glow::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--gradient-angle, 0deg),
+    var(--color-neon-blue, #00d4ff),
+    var(--color-neon-purple, #b388ff),
+    var(--color-neon-pink, #f72585),
+    var(--color-neon-cyan, #00f5d4),
+    var(--color-neon-blue, #00d4ff)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: border-glow-rotate 4s linear infinite;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.border-glow:hover::before {
+  opacity: 1;
+}
+
+@keyframes border-glow-rotate {
+  to { --gradient-angle: 360deg; }
+}
+
+/* ╔═══════════════════════════════════════════════════════════════════════════════╗
+   ║  SECTION 12: RESPONSIVE POLISH ADJUSTMENTS                                    ║
+   ╚═══════════════════════════════════════════════════════════════════════════════╝ */
+
+/* Tablet adjustments */
+@media (max-width: 1024px) {
+  .ambient-blob--1 { width: 400px; height: 400px; }
+  .ambient-blob--2 { width: 350px; height: 350px; }
+  .ambient-blob--3 { width: 280px; height: 280px; }
+  .ambient-blob--4 { width: 250px; height: 250px; }
+  .ambient-blob--5 { width: 200px; height: 200px; }
+
+  .scroll-progress-circular {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  /* Simplify blobs for performance */
+  .ambient-blob--1 { width: 300px; height: 300px; }
+  .ambient-blob--2 { width: 250px; height: 250px; }
+  .ambient-blob--3,
+  .ambient-blob--4,
+  .ambient-blob--5 {
+    display: none;
+  }
+
+  /* Hide custom cursor on touch devices */
+  .cursor-dot,
+  .cursor-ring,
+  .cursor-trail {
+    display: none !important;
+  }
+
+  body.custom-cursor-active {
+    cursor: auto;
+  }
+
+  /* Simplify scrollbar */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  /* Hide circular progress on mobile */
+  .scroll-progress-circular {
+    display: none;
+  }
+
+  /* Reduce loading screen complexity */
+  .loading-particle {
+    display: none;
+  }
+
+  /* Disable noise overlay on mobile */
+  .ambient-blobs::after {
+    display: none;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+  .ambient-blob--1 { width: 200px; height: 200px; }
+  .ambient-blob--2 { width: 180px; height: 180px; }
+
+  .loading-brand {
+    font-size: 1.8rem;
+  }
+}
+
+/* ╔═══════════════════════════════════════════════════════════════════════════════╗
+   ║  SECTION 13: DARK/LIGHT MODE SUPPORT (Future-proofing)                       ║
+   ╚═══════════════════════════════════════════════════════════════════════════════╝ */
+
+/* System preference light mode — minimal overrides */
+@media (prefers-color-scheme: light) {
+  /* Portfolio is dark-first; light mode is not primary */
+  /* This section reserved for future light mode implementation */
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .ambient-blobs {
+    opacity: 0.3;
+  }
+
+  .glass-card,
+  .card-3d {
+    border-width: 2px;
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .scroll-progress-bar {
+    height: 4px;
+  }
+}
+
+/* Forced colors mode (Windows High Contrast) */
+@media (forced-colors: active) {
+  .ambient-blobs,
+  .cursor-dot,
+  .cursor-ring,
+  .cursor-trail,
+  .loading-particle {
+    display: none;
+  }
+
+  .scroll-progress-bar {
+    background: Highlight;
+  }
+
+  .glass-card,
+  .card-3d {
+    border: 1px solid ButtonText;
+  }
+}
+
+/* ╔═══════════════════════════════════════════════════════════════════════════════╗
+   ║  SECTION 14: ANIMATION PLAY STATE UTILITIES                                   ║
+   ╚═══════════════════════════════════════════════════════════════════════════════╝ */
+
+/* Pause animations when tab is hidden */
+body:not(.page-visible) .ambient-blob,
+body:not(.page-visible) .floating-object,
+body:not(.page-visible) .floating-cube,
+body:not(.page-visible) .floating-polyhedron,
+body:not(.page-visible) .floating-ring,
+body:not(.page-visible) .floating-particle,
+body:not(.page-visible) .loading-particle,
+body:not(.page-visible) .holographic::before {
+  animation-play-state: paused;
+}
+
+/* Resume when visible */
+body.page-visible .ambient-blob,
+body.page-visible .floating-object,
+body.page-visible .floating-cube,
+body.page-visible .floating-polyhedron,
+body.page-visible .floating-ring,
+body.page-visible .floating-particle,
+body.page-visible .loading-particle,
+body.page-visible .holographic::before {
+  animation-play-state: running;
+}
+
+/* ╔═══════════════════════════════════════════════════════════════════════════════╗
+   ║  SECTION 15: ACCESSIBILITY — FOCUS VISIBLE STATES                             ║
+   ╚═══════════════════════════════════════════════════════════════════════════════╝ */
+
+/* Custom focus ring for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--color-neon-cyan, #00f5d4);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm, 0.375rem);
+}
+
+/* Remove outline for mouse focus */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Skip link for keyboard users */
+.skip-link {
+  position: fixed;
+  top: -100%;
+  left: 1rem;
+  z-index: calc(var(--z-max, 9999) + 20);
+  padding: 0.75rem 1.5rem;
+  background: var(--color-neon-cyan, #00f5d4);
+  color: var(--color-bg-primary, #0a0a0f);
+  font-family: var(--font-family-mono, 'JetBrains Mono', monospace);
+  font-weight: 600;
+  font-size: 0.85rem;
+  border-radius: 0 0 var(--radius-md, 0.5rem) var(--radius-md, 0.5rem);
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+}
