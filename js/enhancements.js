@@ -1438,85 +1438,19 @@
     getProjectData(projectId) {
       // Project data lookup (in production, this comes from the server)
       const projects = {
-        scraper: {
-          title: 'Legal Scraping Engine',
-          tagline: 'AI-powered pipeline for automated legal document acquisition',
-          description: 'A sophisticated web scraping platform that combines traditional scraping techniques with AI-powered content extraction.',
+        geoplanning: {
+          title: 'GeoPlanning',
+          tagline: 'Commercial land-use and territorial planning platform',
+          description: 'GovTech SaaS by ltdm-solutions: GIS-driven workflows for territorial and land-use planning, in production with real regulatory users.',
           details: [
-            'Multi-layered scraping architecture with automatic retry and fallback',
-            'AI-powered content classification using local LLMs',
-            'Real-time monitoring dashboard with health alerts',
-            'Distributed processing handling thousands of documents/hour',
+            'GIS data pipelines with regulatory zoning overlays',
+            'Role-based workflows for planning approvals',
+            'Production deployment serving real municipalities',
+            'Multi-layer map visualization and reporting',
           ],
-          tech: ['Python', 'Playwright', 'Ollama', 'LangChain', 'PostgreSQL', 'Redis'],
-          github: '#',
-          live: '#',
-        },
-        'sales-ai': {
-          title: 'AI Sales Assistant',
-          tagline: 'Intelligent sales matching platform powered by LLMs',
-          description: 'Led the development of a comprehensive sales matching platform that uses AI to connect businesses with ideal prospects.',
-          details: [
-            'Microservices architecture on AWS EKS handling 10K+ concurrent users',
-            'Real-time matching engine processing leads with sub-100ms latency',
-            'Optimized CI/CD reducing deployment time from 45min to 22min',
-            'Event-driven architecture using WebSockets for live updates',
-          ],
-          tech: ['Node.js', 'NestJS', 'TypeScript', 'AWS', 'Kubernetes', 'PostgreSQL'],
-          github: '#',
-          live: '#',
-        },
-        analytics: {
-          title: 'Real-Time Analytics',
-          tagline: 'Kafka-powered event streaming dashboard',
-          description: 'Real-time analytics dashboard processing millions of events with sub-second latency using Kafka streams.',
-          details: [
-            'Kafka consumer groups for parallel event processing',
-            'WebSocket-based live data visualization',
-            'Custom aggregation pipelines for real-time metrics',
-          ],
-          tech: ['React', 'Node.js', 'Kafka', 'Redis', 'D3.js'],
-          github: '#',
-          live: '#',
-        },
-        cicd: {
-          title: 'K8s Deploy Pipeline',
-          tagline: 'Automated deployment reducing CI/CD time by 50%',
-          description: 'Zero-downtime deployment pipeline with automated rollback capabilities.',
-          details: [
-            'GitOps-based deployment with ArgoCD',
-            'Automated canary releases with metrics analysis',
-            'Infrastructure as Code with Terraform',
-          ],
-          tech: ['Docker', 'Kubernetes', 'GitHub Actions', 'Terraform', 'AWS'],
-          github: '#',
-          live: '#',
-        },
-        ecommerce: {
-          title: 'E-Commerce Platform',
-          tagline: 'Full-stack Next.js commerce solution',
-          description: 'High-performance e-commerce platform optimized for Core Web Vitals.',
-          details: [
-            'Server-side rendering for optimal SEO',
-            'Edge functions for personalized experiences',
-            '45% API latency reduction through query optimization',
-          ],
-          tech: ['Next.js', 'TypeScript', 'Stripe', 'PostgreSQL', 'Redis'],
-          github: '#',
-          live: '#',
-        },
-        'code-review': {
-          title: 'AI Code Review Bot',
-          tagline: 'Automated code review using LLMs',
-          description: 'Intelligent code review system that detects bugs, security issues, and suggests improvements.',
-          details: [
-            'Custom LLM prompts for contextual code analysis',
-            'GitHub Actions integration for automated PR reviews',
-            'Security vulnerability detection with CWE mapping',
-          ],
-          tech: ['Python', 'LangChain', 'GitHub API', 'Docker', 'OpenAI'],
-          github: '#',
-          live: '#',
+          tech: ['GIS', 'Full-Stack', 'SaaS', 'Databases'],
+          github: '',
+          live: '',
         },
       };
 
