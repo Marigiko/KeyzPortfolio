@@ -2162,7 +2162,7 @@
                             <span class="tag">Redis</span>
                         </div>
                         <div class="project-card__links">
-                            <a href="#" class="project-card__link" hx-get="/projects/scraper" hx-target="#project-detail" hx-swap="innerHTML">
+                            <a href="#" class="project-card__link" data-project="scraper">
                                 View Details →
                             </a>
                         </div>
@@ -2184,7 +2184,7 @@
                             <span class="tag">PostgreSQL</span>
                         </div>
                         <div class="project-card__links">
-                            <a href="#" class="project-card__link" hx-get="/projects/sales-ai" hx-target="#project-detail" hx-swap="innerHTML">
+                            <a href="#" class="project-card__link" data-project="sales-ai">
                                 View Details →
                             </a>
                         </div>
@@ -2206,7 +2206,7 @@
                             <span class="tag">Redis</span>
                         </div>
                         <div class="project-card__links">
-                            <a href="#" class="project-card__link" hx-get="/projects/analytics" hx-target="#project-detail" hx-swap="innerHTML">
+                            <a href="#" class="project-card__link" data-project="analytics">
                                 View Details →
                             </a>
                         </div>
@@ -2228,7 +2228,7 @@
                             <span class="tag">AWS</span>
                         </div>
                         <div class="project-card__links">
-                            <a href="#" class="project-card__link" hx-get="/projects/cicd" hx-target="#project-detail" hx-swap="innerHTML">
+                            <a href="#" class="project-card__link" data-project="cicd">
                                 View Details →
                             </a>
                         </div>
@@ -2250,7 +2250,7 @@
                             <span class="tag">PostgreSQL</span>
                         </div>
                         <div class="project-card__links">
-                            <a href="#" class="project-card__link" hx-get="/projects/ecommerce" hx-target="#project-detail" hx-swap="innerHTML">
+                            <a href="#" class="project-card__link" data-project="ecommerce">
                                 View Details →
                             </a>
                         </div>
@@ -2272,7 +2272,7 @@
                             <span class="tag">Docker</span>
                         </div>
                         <div class="project-card__links">
-                            <a href="#" class="project-card__link" hx-get="/projects/code-review" hx-target="#project-detail" hx-swap="innerHTML">
+                            <a href="#" class="project-card__link" data-project="code-review">
                                 View Details →
                             </a>
                         </div>
@@ -2372,10 +2372,10 @@
 
                 <!-- Contact Form with HTMX -->
                 <form class="contact__form reveal"
-                      hx-post="/api/contact"
-                      hx-target="#form-response"
-                      hx-swap="innerHTML"
-                      hx-indicator=".form-loading">
+                      id="contact-form"
+                      action="mailto:marioaquinojob@gmail.com"
+                      method="post"
+                      enctype="text/plain">
                     <div class="form__group">
                         <label class="form__label" for="name">Name</label>
                         <input type="text" id="name" name="name" class="form__input" required placeholder="Your name">
@@ -2398,7 +2398,7 @@
                             <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
                         </svg>
                     </button>
-                    <div class="form-loading htmx-indicator" style="text-align: center; margin-top: 1rem;">
+                    <div class="form-loading" style="display:none;">
                         <div class="loading-spinner"></div>
                         <p style="margin-top: 0.5rem; color: var(--color-text-muted);">Sending...</p>
                     </div>
