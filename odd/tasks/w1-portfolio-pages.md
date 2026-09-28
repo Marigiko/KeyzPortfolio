@@ -26,3 +26,4 @@ Repo: /mnt/e/Projects/KeyzPortfolio · Marigiko/KeyzPortfolio (público)
 (tarea 2) commit: 9136992 — pages.yml + .nojekyll + CNAME + sitio 100% estático (smoke local 200 OK en /, js, styles, CNAME, content.json). Run de Actions pendiente del primer push.
 (tarea 3) commit: 822248a — LICENSE MIT + notice de contenido reservado; README con docs/screenshot.png y link a Pages; captura 1440x900 (verificar visualmente).
 (tarea 4) commit: 18364ca — 3 cards reales con links (PawnBid → github.com/Marigiko/PawnBid; GeoPlanning → modal local; Hornero Tech → hornerotech.com); content.json + modal JS actualizados; JSON válido y smoke 200.
+(tarea 5) commit: 6c85b82 — sección #open-source con KeyzPortfolio, KeyzBoard y repos (link “Browse all”); nav actualizado. Verificar que KeyzBoard esté público (owner).
