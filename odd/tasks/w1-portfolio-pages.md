@@ -27,3 +27,4 @@ Repo: /mnt/e/Projects/KeyzPortfolio · Marigiko/KeyzPortfolio (público)
 (tarea 3) commit: 822248a — LICENSE MIT + notice de contenido reservado; README con docs/screenshot.png y link a Pages; captura 1440x900 (verificar visualmente).
 (tarea 4) commit: 18364ca — 3 cards reales con links (PawnBid → github.com/Marigiko/PawnBid; GeoPlanning → modal local; Hornero Tech → hornerotech.com); content.json + modal JS actualizados; JSON válido y smoke 200.
 (tarea 5) commit: 6c85b82 — sección #open-source con KeyzPortfolio, KeyzBoard y repos (link “Browse all”); nav actualizado. Verificar que KeyzBoard esté público (owner).
+(tarea 6) commit: (solo evidencia) — auditoría regex de texto visible en index.html/content.json/js: 0 remanentes de español; sitio ya era 100% en inglés (lang="en", title, meta OG en inglés).
