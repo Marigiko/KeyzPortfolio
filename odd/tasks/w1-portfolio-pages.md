@@ -29,3 +29,5 @@ Repo: /mnt/e/Projects/KeyzPortfolio · Marigiko/KeyzPortfolio (público)
 (tarea 5) commit: 6c85b82 — sección #open-source con KeyzPortfolio, KeyzBoard y repos (link “Browse all”); nav actualizado. Verificar que KeyzBoard esté público (owner).
 (tarea 6) commit: (solo evidencia) — auditoría regex de texto visible en index.html/content.json/js: 0 remanentes de español; sitio ya era 100% en inglés (lang="en", title, meta OG en inglés).
 (tarea 7) commit: 647ab1b — Lighthouse mobile (Chromium headless, emulación móvil): Performance 90 · Accessibility 96 · Best Practices 100 · SEO 100. Reporte completo en docs/lighthouse-mobile.json. Prueba en celular real: pendiente (humano).
+(tarea 8) BLOQUEADA para el agente: 9 commits locales en main (5174e15..HEAD); push requiere passphrase de ~/.ssh/id_ed25519 con ssh-agent (solo humano). URL pública y run de Actions: verificar después del push.
+   Comando para el usuario: eval $(ssh-agent) && ssh-add ~/.ssh/id_ed25519 && git -C /mnt/e/Projects/KeyzPortfolio push origin main
