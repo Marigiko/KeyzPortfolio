@@ -2367,12 +2367,8 @@
                     </div>
                 </div>
 
-                <!-- Contact Form with HTMX -->
-                <form class="contact__form reveal"
-                      id="contact-form"
-                      action="mailto:marioaquinojob@gmail.com"
-                      method="post"
-                      enctype="text/plain">
+                <!-- Contact form: static hosting — JS builds a mailto: draft with visible success state -->
+                <form class="contact__form reveal" id="contact-form" novalidate>
                     <div class="form__group">
                         <label class="form__label" for="name">Name</label>
                         <input type="text" id="name" name="name" class="form__input" required placeholder="Your name">
@@ -2395,11 +2391,11 @@
                             <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
                         </svg>
                     </button>
-                    <div class="form-loading" style="display:none;">
+                    <div class="form-loading" id="form-loading" hidden>
                         <div class="loading-spinner"></div>
-                        <p style="margin-top: 0.5rem; color: var(--color-text-muted);">Sending...</p>
+                        <p style="margin-top: 0.5rem; color: var(--color-text-muted);">Opening your email client…</p>
                     </div>
-                    <div id="form-response"></div>
+                    <div id="form-response" role="status" aria-live="polite"></div>
                 </form>
             </div>
         </div>
@@ -2560,6 +2556,31 @@
                 });
             });
         }));
+
+        // ============================================
+        // CONTACT FORM (static hosting): build a mailto: draft with visible feedback
+        // ============================================
+        const contactForm = document.getElementById('contact-form');
+        if (contactForm) {
+            const formLoading = document.getElementById('form-loading');
+            const formResponse = document.getElementById('form-response');
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (!contactForm.reportValidity()) return;
+                const data = new FormData(contactForm);
+                const subject = encodeURIComponent(String(data.get('subject') || ''));
+                const body = encodeURIComponent(
+                    `${data.get('message') || ''}\n\n— ${data.get('name') || ''} <${data.get('email') || ''}>`
+                );
+                if (formLoading) formLoading.hidden = false;
+                window.location.href = `mailto:marioaquinojob@gmail.com?subject=${subject}&body=${body}`;
+                if (formResponse) {
+                    formResponse.textContent =
+                        'Your email client should open with a pre-filled message. If nothing happens, write to marioaquinojob@gmail.com directly.';
+                }
+                setTimeout(() => { if (formLoading) formLoading.hidden = true; }, 4000);
+            });
+        }
 
         // ============================================
         // INTERSECTION OBSERVER FOR SCROLL REVEALS
